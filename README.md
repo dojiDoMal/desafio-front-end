@@ -6,11 +6,11 @@ Clone esse repositório e inicie **agora mesmo!**
 
 ## Objetivo
 
-Criar um app utilizando React Native e consumir uma API externa.
+Criar um app utilizando **React Native** e consumir uma **API externa**.
 
 ## API
 
-Use a 'API [Google Books](https://developers.google.com/books/docs/v1/using)' para pegar os dados que serão mostrados no aplicativo.
+Use a API [Google Books](https://developers.google.com/books/docs/v1/using) para pegar os dados que serão exibidos no aplicativo.
 
 ```js
 const query = "harry potter";
@@ -21,11 +21,11 @@ fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}`);
 
 ## Design/Telas
 
- <br />
+ <br/>
 
 [Layout no Figma](https://www.figma.com/file/95FJWgTMrdBVDKbwm1ja8O/frontend-book-app)
 
- <br />
+ <br/>
 
 <img width="581" alt="Screen Shot 2021-04-13 at 10 19 47" src="https://user-images.githubusercontent.com/13947203/114559257-eb55ad00-9c41-11eb-9617-4e7627cc373e.png">
 
