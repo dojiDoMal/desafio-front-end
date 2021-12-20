@@ -1,3 +1,5 @@
+<img width="720" src="https://gcdn.pbrd.co/images/RwEH6gWOyrW4.png?o=1">
+
 # Desafio Frontend
 
 Clone esse repositório e inicie **agora mesmo!**
