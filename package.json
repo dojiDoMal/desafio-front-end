@@ -30,7 +30,11 @@
     "@react-navigation/material-top-tabs": "6.0.2",
     "@react-navigation/native-stack": "6.0.5",
     "@react-navigation/native": "6.0.2",
-    "@react-navigation/stack": "6.0.6"
+    "@react-navigation/stack": "6.0.6",
+    "native-base": "*",
+    "react-native-svg": "12.1.1",
+    "react-native-elements": "*",
+    "@expo-google-fonts/poppins": "*"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

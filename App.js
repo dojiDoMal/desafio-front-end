@@ -1,5 +1,3 @@
-// You can import Ionicons from @expo/vector-icons if you use Expo or
-// react-native-vector-icons/Ionicons otherwise.
 import * as React from 'react';
 import { Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
@@ -9,25 +7,16 @@ import { NavigationContainer } from '@react-navigation/native';
 //Import das Telas
 import HomeScreen from './components/HomeScreen'
 
-function ProfileScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Profile!</Text>
-    </View>
-  );
-}
+// Essa tela e um requisito nao-funcional
+function ProfileScreen() { return; } 
 
-function LibrariesScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Libraries!</Text>
-    </View>
-  );
-}
+// Essa tela e um requisito nao-funcional
+function LibrariesScreen() { return; }
 
 const Tab = createBottomTabNavigator();
 
 export default function App() {
+
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -36,9 +25,7 @@ export default function App() {
             let iconName;
 
             if (route.name === 'Home') {
-              iconName = focused
-                ? 'ios-home'
-                : 'ios-home-outline';
+              iconName = 'ios-home';
             } else if (route.name === 'Profile') {
               iconName = 'ios-person-outline';
             } else if (route.name === 'Libraries') {
