@@ -25,16 +25,14 @@ export default function Exploration(props) {
           })
         }
       </ScrollView>
-      
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    paddingTop: 30,
-    paddingHorizontal: 20
+    paddingTop: 20,
+    paddingHorizontal: 20,
   },
   exploreImage: {
     height: 140,
