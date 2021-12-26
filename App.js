@@ -42,7 +42,7 @@ function TabStack(){
       headerShown: false
       })}
     >
-    <Tab.Screen name="Home" component={HomeStack} />
+    <Tab.Screen name="Home" component={HomeScreen} />
     <Tab.Screen 
       name="Libraries" 
       component={LibrariesScreen} 
@@ -71,7 +71,7 @@ function HomeStack(){
   <Stack.Navigator screenOptions={{headerShown: false}}>
     <Stack.Screen 
       name='Home'
-      component={HomeScreen}
+      component={TabStack}
     />
     <Stack.Screen 
       name='Detail'
@@ -84,7 +84,7 @@ function HomeStack(){
 export default function App() {
   return (
     <NavigationContainer>
-      <TabStack />
+      <HomeStack />
     </NavigationContainer>
   );
 }
