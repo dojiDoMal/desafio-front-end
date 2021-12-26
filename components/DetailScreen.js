@@ -1,11 +1,11 @@
-import { Text, SafeAreaView, View, Image, Button, StyleSheet, ScrollView } from 'react-native';
+import { Text, SafeAreaView, View, Image, ImageBackground, Button, StyleSheet, StatusBar, ScrollView } from 'react-native';
 import * as React from 'react';
 
 import { Feather } from "@expo/vector-icons";
+import { BoxShadow } from "react-native-shadow";
 
 import { useFonts, Poppins_400Regular } from '@expo-google-fonts/poppins';
 
-//TODO: fazer algumas melhorias no CSS
 export default function DetailScreen({navigation}) {
 
   let [fontsLoaded] = useFonts({
@@ -23,6 +23,15 @@ export default function DetailScreen({navigation}) {
 
   return (
     <SafeAreaView style={{ flex: 1, paddingTop: 50 }}>
+      <StatusBar
+        animated={true}
+        backgroundColor="blanchedalmond"
+      />
+      <ScrollView
+        vertical={true}
+        showsVerticalScrollIndicator={false}
+        bounces={false}
+      >
         <Feather
           name="arrow-left"
           size={26}
@@ -32,60 +41,70 @@ export default function DetailScreen({navigation}) {
             navigation.navigate('Home')
           }}
         />
-        <ScrollView
-          vertical={true}
-          showsVerticalScrollIndicator={false}
-          bounces={false}
-        >
-        <View style={{flex:1, alignItems: 'center'}}>
-          <Image source={book.cover} />
+        <View style={{ height: 160, borderBottomRightRadius: 100, backgroundColor: 'blanchedalmond', flex:1, alignItems: 'center'}}>
+          <Image 
+            source={require('../assets/circles.png')} 
+            style={{position: 'absolute', top: -550, left: 60, right: 0, bottom: 0}}
+          />
+          <Image source={book.cover} style={{height: 190}}/>
         </View>
+
         <View style={styles.textBody}>
           <Text style={styles.titleText}>{book.title}</Text>
           <Text style={styles.authorText}>{book.author}</Text>
           <Text style={styles.descriptionText}>{book.description}</Text>
         </View>
-        </ScrollView>
+    
+      </ScrollView>
 
-        <View style={[styles.floatButton, {borderRadius: 5, justifyContent: 'center',width: 90, right:238, flexDirection: 'row'}]}>
-        <Feather
-          name="book"
-          size={26}
-          color='black'
-          style={{textAlign: 'center', lineHeight: 60}}
-        />
-        <Text style={{paddingLeft:10, textAlign: 'center', lineHeight: 60, fontSize: 18}}>Ler</Text>
+      <BoxShadow setting={styles.shadow}>
+        <View style={styles.floatButton}>
+          <Feather
+            name="book"
+            size={22}
+            color='grey'
+            style={styles.iconStyle}
+          />
+          <Text style={styles.floatButtonText}>Ler
+            <Text style={{color: '#afafaf', fontSize: 20}}>{"  |  "}</Text>
+          </Text>
+
+          <Feather
+            name="headphones"
+            size={22}
+            color='grey'
+            style={styles.iconStyle}
+          />
+          <Text style={styles.floatButtonText}>Ouvir
+            <Text style={{color: '#afafaf', fontSize: 20}}>{"  |  "}</Text>
+          </Text>
+
+          <Feather
+            name="share"
+            size={22}
+            color='grey'
+            style={styles.iconStyle}
+          />
+          <Text style={styles.floatButtonText}>Enviar</Text>
         </View>
-
-        <View style={[styles.floatButton, {justifyContent: 'center',width: 110, right:138, flexDirection: 'row'}]}>
-        <Feather
-          name="headphones"
-          size={26}
-          color='black'
-          style={{textAlign: 'center', lineHeight: 60}}
-        />
-        <Text style={{paddingLeft:10, textAlign: 'center', lineHeight: 60, fontSize: 18}}>Ouvir</Text>
-        </View>
-
-        <View style={[styles.floatButton, {borderRadius: 5, justifyContent: 'center',width: 110, right:38, flexDirection: 'row'}]}>
-        <Feather
-          name="share"
-          size={26}
-          color='black'
-          style={{textAlign: 'center', lineHeight: 60}}
-        />
-        <Text style={{paddingLeft:10, textAlign: 'center', lineHeight: 60, fontSize: 18}}>Enviar</Text>
-        </View>
-
-     </SafeAreaView>
+      </BoxShadow>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create(
   {
     backButton:{
+      backgroundColor: "blanchedalmond",
       paddingTop: 30,
+      paddingBottom: 20,
       paddingHorizontal: 30
+    },
+    shadow: {
+      width: 360,
+      height: 70,
+      color: "#f0f0f0",
+      border: 80,
     },
     textBody: {
       flex: 2,
@@ -95,15 +114,32 @@ const styles = StyleSheet.create(
       fontFamily: 'Poppins_400Regular',
       fontSize: 30, 
       textAlign: 'left', 
-      paddingTop:30, 
+      paddingTop: 60, 
       paddingBottom: 10
     },
     floatButton:{
+      elevation: 5, 
+      borderRadius: 5, 
+      justifyContent: 'center',
+      width: 310, 
+      right: 25, 
+      flexDirection: 'row',
       bottom: 40,
       position: 'absolute',
       height: 60,
-      backgroundColor: '#cecece',
+      backgroundColor: 'rgb(230,230,230)',
       textAlign: 'center',
+      lineHeight: 60
+    },
+    floatButtonText: {
+      fontFamily: 'Poppins_400Regular',
+      paddingLeft:10, 
+      textAlign: 'center', 
+      lineHeight: 60, 
+      fontSize: 16
+    },
+    iconStyle:{
+      textAlign: 'center', 
       lineHeight: 60
     },
     authorText:{
@@ -118,7 +154,7 @@ const styles = StyleSheet.create(
       color: '#666666', 
       fontSize: 16, 
       lineHeight: 25,
-      paddingBottom: 130
+      paddingBottom: 80
     }
   }
 )
