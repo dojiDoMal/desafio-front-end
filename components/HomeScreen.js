@@ -5,18 +5,22 @@ import {
     SafeAreaView,
     StatusBar,
     Text,
-    ImageBackground
+    ImageBackground,
+    ScrollView
 } from "react-native";
 
+import Review from './Review'
 import Reading from'./Reading'
 import Exploration from './Exploration'
 import SearchBar from './SearchBar';
 import { useFonts, Poppins_400Regular } from '@expo-google-fonts/poppins';
 
-export default function HomeScreen() {
+const HomeScreen = ({navigation}) => {
 
   const [search, setSearch] = useState("");
 
+  // TODO: esses livros precisam vir da API
+  // (pegar dois fixos aleatórios)
   const discoverPictures = [
     {
       id: '1',
@@ -28,6 +32,7 @@ export default function HomeScreen() {
     }
   ]
 
+  //TODO: esse livro precisam vir da API
   const currentReading = {
     id: '1',
     title: 'Harry Potter e a \n Pedra Filosofal',
@@ -63,23 +68,44 @@ export default function HomeScreen() {
           </Text>
         </View>
 
+        <ScrollView
+          vertical={true}
+          showsVerticalScrollIndicator={false}
+          bounces={false}
+        >
+
         <Exploration
           title="Descubra novos livros"
           note="Mais"
           image={discoverPictures}
+          onPress={() => {
+            navigation.navigate('Detail')
+          }}
         />
 
         <Reading
           title="Lendo Agora"
           note="Todos"
           book={currentReading}
+          onPress={() => {
+            navigation.navigate('Detail')
+          }}
         />
+
+        <Review
+          title="Críticas do dia"
+          note="Vídeos"
+          thumb={require('../assets/review.jpg')}
+        />
+
+        </ScrollView>
         
       </ImageBackground>
     </SafeAreaView>
   );
 
 }
+export default HomeScreen
 
 const styles = StyleSheet.create({
   container: {

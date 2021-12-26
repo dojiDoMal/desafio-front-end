@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, Image, ScrollView,ImageBackground } from 'react-native';
+import { Text, View, StyleSheet, Image, ScrollView, ImageBackground, TouchableOpacity } from 'react-native';
 import React from 'react';
 
 import { Feather } from "@expo/vector-icons";
@@ -22,8 +22,11 @@ export default function Reading(props) {
         <Text style={styles.title}> {props.title} </Text>
         <Text style={styles.note}> {props.note} </Text>
       </View>
+      <TouchableOpacity
+          onPress={props.onPress}
+        >
       <View style={{flexDirection: 'row'}}>
-        <Image source={props.book.image} style={styles.exploreImage}/>
+          <Image source={props.book.image} style={styles.coverImage}/>
         <View style={styles.bookInfo}>
           <Text style={{fontSize: 20, fontWeight: 'bold'}}> {props.book.title} </Text>
           <Text style={{paddingTop: 5, color: 'grey'}}> de {props.book.author} </Text>
@@ -37,6 +40,7 @@ export default function Reading(props) {
           </Text>
         </View>
       </View>
+      </TouchableOpacity>
       </ImageBackground>
     </View>
   );
@@ -59,7 +63,7 @@ const styles = StyleSheet.create({
   bookInfo: {
     paddingTop: 20,
   },
-  exploreImage: {
+  coverImage: {
     height: 140,
     width: 90,
     borderRadius: 1,
