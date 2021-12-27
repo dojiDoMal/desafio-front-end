@@ -9,6 +9,7 @@ import {
     ScrollView
 } from "react-native";
 
+import Book from './Book'
 import Review from './Review'
 import Reading from'./Reading'
 import Exploration from './Exploration'
@@ -18,6 +19,7 @@ import { useFonts, Poppins_400Regular } from '@expo-google-fonts/poppins';
 const HomeScreen = ({navigation}) => {
 
   const [search, setSearch] = useState("");
+  const [searchPhrase, setSearchPhrase] = useState("");
 
   // TODO: esses livros precisam vir da API
   // (pegar dois fixos aleatórios)
@@ -40,17 +42,13 @@ const HomeScreen = ({navigation}) => {
     image: require("../assets/harry.jpg")
   }
   
-
-  const updateSearch = (search) => {
-    setSearch(search);
-  };
-
   let [fontsLoaded] = useFonts({
     Poppins_400Regular,
   });
   
-  return (
-    <SafeAreaView style={styles.container}>
+  if(searchPhrase === ""){
+    return(
+      <SafeAreaView style={styles.container}>
       <ImageBackground 
         source={require('../assets/background.jpg')} 
         style={styles.backgroundImage}
@@ -58,9 +56,10 @@ const HomeScreen = ({navigation}) => {
       >
         <SearchBar
           placeholder="Pesquisar Livro"
-          onChangeText={this.updateSearch}
-          value={search}
+          searchPhrase={searchPhrase}
+          setSearchPhrase={setSearchPhrase}
         />
+
         <View style={styles.greetingText}>
           <Text style={{fontSize: 22, fontFamily: 'Poppins_400Regular'}}>
             Olá,{" "}
@@ -102,7 +101,39 @@ const HomeScreen = ({navigation}) => {
         
       </ImageBackground>
     </SafeAreaView>
-  );
+    )
+  } else {
+    return (
+      <SafeAreaView style={styles.container}>
+      <ImageBackground 
+        source={require('../assets/background.jpg')} 
+        style={styles.backgroundImage}
+        imageStyle={{opacity:0.25}}
+      >
+        <SearchBar
+          placeholder="Pesquisar Livro"
+          searchPhrase={searchPhrase}
+          setSearchPhrase={setSearchPhrase}
+        />
+
+        <ScrollView
+          vertical={true}
+          showsVerticalScrollIndicator={false}
+          bounces={false}
+        >    
+          // TODO: Esses livros precisam vir da busca pelo fetch na API
+          <Book
+            book={currentReading}
+            onPress={() => {
+              navigation.navigate('Detail')
+            }}
+          >
+          </Book>
+        </ScrollView>
+      </ImageBackground>
+    </SafeAreaView>
+    )
+  } 
 
 }
 export default HomeScreen
