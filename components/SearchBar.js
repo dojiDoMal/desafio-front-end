@@ -1,6 +1,14 @@
-import React from "react";
-import { StyleSheet, TextInput, View, Keyboard, Button } from "react-native";
+import React, { useState, useEffect } from "react";
+import { 
+  StyleSheet, 
+  TextInput, 
+  View, 
+  Keyboard, 
+  Button 
+} from "react-native";
+
 import { Feather, Entypo } from "@expo/vector-icons";
+
 import { useFonts, Poppins_400Regular } from '@expo-google-fonts/poppins';
 
 const SearchBar = (props) => {
@@ -8,7 +16,7 @@ const SearchBar = (props) => {
   let [fontsLoaded] = useFonts({
     Poppins_400Regular,
   });
-
+  
   return (
     <View style={styles.container}>
       <View style={styles.searchBar}>
@@ -22,12 +30,12 @@ const SearchBar = (props) => {
           placeholder="Pesquisar livros"
           value={props.searchPhrase}
           onChangeText={props.setSearchPhrase}
+          onChange={props.change}
         />
       </View>
     </View>
   );
 };
-
 export default SearchBar;
 
 const styles = StyleSheet.create({

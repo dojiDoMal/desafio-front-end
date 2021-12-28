@@ -1,9 +1,23 @@
-import { Text, SafeAreaView, View, Image, ImageBackground, Button, StyleSheet, StatusBar, ScrollView } from 'react-native';
+import { 
+  Text, 
+  SafeAreaView, 
+  View, 
+  Image, 
+  ImageBackground, 
+  Button, 
+  StyleSheet, 
+  StatusBar, 
+  ScrollView 
+} from 'react-native';
 import * as React from 'react';
 
+// Import do componente para uso de icones
 import { Feather } from "@expo/vector-icons";
+
+// Componente para criacao de elementos sombreados
 import { BoxShadow } from "react-native-shadow";
 
+// Import da fonte do google
 import { useFonts, Poppins_400Regular } from '@expo-google-fonts/poppins';
 
 export default function DetailScreen({navigation}) {
@@ -51,7 +65,7 @@ export default function DetailScreen({navigation}) {
 
         <View style={styles.textBody}>
           <Text style={styles.titleText}>{book.title}</Text>
-          <Text style={styles.authorText}>{book.author}</Text>
+          <Text style={styles.authorText}>{book.title}</Text>
           <Text style={styles.descriptionText}>{book.description}</Text>
         </View>
     
@@ -94,7 +108,7 @@ export default function DetailScreen({navigation}) {
 
 const styles = StyleSheet.create(
   {
-    backButton:{
+    backButton: {
       backgroundColor: "blanchedalmond",
       paddingTop: 30,
       paddingBottom: 20,
@@ -110,14 +124,14 @@ const styles = StyleSheet.create(
       flex: 2,
       paddingHorizontal: 25,
     },
-    titleText:{
+    titleText: {
       fontFamily: 'Poppins_400Regular',
       fontSize: 30, 
       textAlign: 'left', 
       paddingTop: 60, 
       paddingBottom: 10
     },
-    floatButton:{
+    floatButton: {
       elevation: 5, 
       borderRadius: 5, 
       justifyContent: 'center',
@@ -138,17 +152,17 @@ const styles = StyleSheet.create(
       lineHeight: 60, 
       fontSize: 16
     },
-    iconStyle:{
+    iconStyle: {
       textAlign: 'center', 
       lineHeight: 60
     },
-    authorText:{
+    authorText: {
       fontFamily: 'Poppins_400Regular', 
       color: '#cc3366', 
       fontSize: 18, 
       paddingBottom: 10
     },
-    descriptionText:{
+    descriptionText: {
       fontFamily: 'Poppins_400Regular', 
       textAlign: 'justify', 
       color: '#666666', 

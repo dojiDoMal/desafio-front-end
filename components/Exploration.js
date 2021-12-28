@@ -1,4 +1,11 @@
-import { Text, View, StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native';
+import { 
+  Text, 
+  View, 
+  StyleSheet, 
+  Image, 
+  ScrollView, 
+  TouchableOpacity 
+} from 'react-native';
 import React from 'react';
 
 import { useFonts, Poppins_400Regular } from '@expo-google-fonts/poppins';

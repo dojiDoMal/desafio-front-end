@@ -1,11 +1,19 @@
 import * as React from 'react';
 import { Text, View } from 'react-native';
+
+// Import de icones estilo ios 
 import { Ionicons } from '@expo/vector-icons';
+
+// Esse import e necessario para criacao da tab bar de navegacao
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+// Esse import e necessario para a criacao e navegacao entre telas 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+// Import do gerenciador dos elementos de navegacao
 import { NavigationContainer } from '@react-navigation/native';
 
-//Import das Telas
+// Import das Telas Inicial e de detalhes
 import HomeScreen from './components/HomeScreen'
 import DetailScreen from './components/DetailScreen'
 

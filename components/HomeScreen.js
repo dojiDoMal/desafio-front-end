@@ -1,25 +1,54 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
-    View,
-    StyleSheet,
-    SafeAreaView,
-    StatusBar,
-    Text,
-    ImageBackground,
-    ScrollView
+  View,
+  StyleSheet,
+  SafeAreaView,
+  StatusBar,
+  Text,
+  Image,
+  ImageBackground,
+  ScrollView
 } from "react-native";
 
+// Importacao dos componentes criados
+import DetailScreen from './DetailScreen'
 import Book from './Book'
 import Review from './Review'
 import Reading from'./Reading'
 import Exploration from './Exploration'
 import SearchBar from './SearchBar';
+
+// Import do componente para uso de icones
+import { Feather } from "@expo/vector-icons";
+
+// Componente para criacao de elementos sombreados
+import { BoxShadow } from "react-native-shadow";
+
 import { useFonts, Poppins_400Regular } from '@expo-google-fonts/poppins';
 
 const HomeScreen = ({navigation}) => {
 
+  const [isShowingDetail, setIsShowingDetail] = useState(false);
+  const [bookDetail, setBookDetail] = useState({});
   const [search, setSearch] = useState("");
   const [searchPhrase, setSearchPhrase] = useState("");
+  const [books, setBooks] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const getBooks = () => {
+    fetch('https://www.googleapis.com/books/v1/volumes?q=' + searchPhrase)
+    .then((response) => response.json())
+    .then((responseData) => {
+      if(responseData.items){
+        setBooks(responseData.items);
+        setErrorMessage(" ");
+      } else {
+        setErrorMessage("Não encontramos nada...");
+      }
+    })
+    .catch(error => setErrorMessage(error))
+    .done();
+  }
 
   // TODO: esses livros precisam vir da API
   // (pegar dois fixos aleatórios)
@@ -36,8 +65,7 @@ const HomeScreen = ({navigation}) => {
 
   //TODO: esse livro precisam vir da API
   const currentReading = {
-    id: '1',
-    title: 'Harry Potter e a \n Pedra Filosofal',
+    title: 'Harry Potter e a\nPedra Filosofal',
     author: 'J.K. Rowling',
     image: require("../assets/harry.jpg")
   }
@@ -102,7 +130,7 @@ const HomeScreen = ({navigation}) => {
       </ImageBackground>
     </SafeAreaView>
     )
-  } else {
+  } else { 
     return (
       <SafeAreaView style={styles.container}>
       <ImageBackground 
@@ -114,6 +142,7 @@ const HomeScreen = ({navigation}) => {
           placeholder="Pesquisar Livro"
           searchPhrase={searchPhrase}
           setSearchPhrase={setSearchPhrase}
+          change={getBooks}
         />
 
         <ScrollView
@@ -121,11 +150,10 @@ const HomeScreen = ({navigation}) => {
           showsVerticalScrollIndicator={false}
           bounces={false}
         >    
-          // TODO: Esses livros precisam vir da busca pelo fetch na API
           <Book
-            book={currentReading}
+            book={books}
             onPress={() => {
-              navigation.navigate('Detail')
+              navigation.navigate('Detail') 
             }}
           >
           </Book>
@@ -134,7 +162,6 @@ const HomeScreen = ({navigation}) => {
     </SafeAreaView>
     )
   } 
-
 }
 export default HomeScreen
 

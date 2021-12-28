@@ -1,37 +1,106 @@
-import { Text, View, StyleSheet, Image, ScrollView, ImageBackground, TouchableOpacity } from 'react-native';
-import React from 'react';
+import { 
+  Text, 
+  View, 
+  StyleSheet, 
+  Image, 
+  Button,
+  ScrollView,  
+  FlatList,     
+  ImageBackground, 
+  TouchableOpacity 
+} from 'react-native';
+import React, { useState } from 'react';
 
+// Import do componente para uso de icones
 import { Feather } from "@expo/vector-icons";
 
+// Import da fonte do google
 import { useFonts, Poppins_400Regular } from '@expo-google-fonts/poppins';
 
 export default function Book(props) {
+
+  const [itemsCount, setItemsCount] = useState(3);
+
+  const showMore = function(){
+    console.log(itemsCount)
+    setItemsCount(props.book.length);
+    console.log(itemsCount)
+  }
 
   let [fontsLoaded] = useFonts({
     Poppins_400Regular,
   });
 
+  let result = [];
+
+  if(props.book.length > 0){
+    if(itemsCount === 3){
+      for(let i=0; i<3; i++){
+        if(props.book[i].volumeInfo.imageLinks){
+          result.push(
+            <TouchableOpacity
+                onPress={props.onPress}
+              >
+            <View style={{paddingHorizontal: 2}}>
+                <Image source={{uri: `${props.book[i].volumeInfo.imageLinks.thumbnail}` }} style={styles.coverImage}/>
+              <View style={styles.bookInfo}>
+                <Text numberOfLines={2} style={styles.bookTitle}> {props.book[i].volumeInfo.title} </Text>
+                <Text numberOfLines={1} style={styles.bookAuthor}> de {props.book[i].volumeInfo.authors} </Text>
+              </View>
+            </View>
+            </TouchableOpacity>
+          )
+        }
+      }
+    } else {
+      for(let i=0; i<props.book.length; i++){
+        if(props.book[i].volumeInfo.imageLinks){
+          result.push(
+            <TouchableOpacity
+                onPress={props.onPress}
+              >
+            <View style={{paddingHorizontal: 2}}>
+                <Image source={{uri: `${props.book[i].volumeInfo.imageLinks.thumbnail}` }} style={styles.coverImage}/>
+              <View style={styles.bookInfo}>
+                <Text numberOfLines={2} style={styles.bookTitle}> {props.book[i].volumeInfo.title} </Text>
+                <Text numberOfLines={1} style={styles.bookAuthor}> de {props.book[i].volumeInfo.authors} </Text>
+              </View>
+            </View>
+            </TouchableOpacity>
+          )
+        } 
+      }
+    }
+  }
+
   return (
-    <View style={styles.container}>
-      <TouchableOpacity
-          onPress={props.onPress}
-        >
-      <View>
-          <Image source={props.book.image} style={styles.coverImage}/>
-        <View style={styles.bookInfo}>
-          <Text numberOfLines={1} style={styles.bookTitle}> {props.book.title} </Text>
-          <Text numberOfLines={1} style={styles.bookAuthor}> de {props.book.author} </Text>
-        </View>
+    <View>
+      <FlatList
+        data={result}
+        numColumns={3}
+        style={styles.list}
+        renderItem={({item}) => item} 
+      />      
+      <View style={styles.button}>
+      {itemsCount === 3 ? (
+        <Button 
+          color='rgb(30,100,200)'
+          title='Mostrar Mais' 
+          onPress={showMore}
+        />
+      ) : (
+        <Text style={{textAlign: 'center', color: 'grey', paddingTop: 20}}>{props.book.length} Resultado(s)</Text>
+      )}
       </View>
-      </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    paddingTop: 30,
-    paddingHorizontal: 20,
+  list: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   bookTitle: {
     fontFamily: 'Poppins_400Regular',
@@ -47,6 +116,11 @@ const styles = StyleSheet.create({
   bookInfo: {
     fontFamily: 'Poppins_400Regular',
     paddingTop: 10,
+  },
+  button: {
+    borderRadius: 50,
+    paddingTop: 20,
+    paddingHorizontal: 80,
   },
   coverImage: {
     height: 140,
