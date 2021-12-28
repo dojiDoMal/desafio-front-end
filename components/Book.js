@@ -38,17 +38,14 @@ export default function Book(props) {
       for(let i=0; i<3; i++){
         if(props.book[i].volumeInfo.imageLinks){
           result.push(
-            <TouchableOpacity
-                onPress={props.onPress}
-              >
             <View style={{paddingHorizontal: 2}}>
                 <Image source={{uri: `${props.book[i].volumeInfo.imageLinks.thumbnail}` }} style={styles.coverImage}/>
               <View style={styles.bookInfo}>
                 <Text numberOfLines={2} style={styles.bookTitle}> {props.book[i].volumeInfo.title} </Text>
                 <Text numberOfLines={1} style={styles.bookAuthor}> de {props.book[i].volumeInfo.authors} </Text>
+                <Text style={{opacity: 0, width: 0, height: 0}}> {props.book[i].volumeInfo.description} </Text>
               </View>
             </View>
-            </TouchableOpacity>
           )
         }
       }
@@ -56,17 +53,14 @@ export default function Book(props) {
       for(let i=0; i<props.book.length; i++){
         if(props.book[i].volumeInfo.imageLinks){
           result.push(
-            <TouchableOpacity
-                onPress={props.onPress}
-              >
             <View style={{paddingHorizontal: 2}}>
                 <Image source={{uri: `${props.book[i].volumeInfo.imageLinks.thumbnail}` }} style={styles.coverImage}/>
               <View style={styles.bookInfo}>
                 <Text numberOfLines={2} style={styles.bookTitle}> {props.book[i].volumeInfo.title} </Text>
                 <Text numberOfLines={1} style={styles.bookAuthor}> de {props.book[i].volumeInfo.authors} </Text>
+                <Text style={{opacity: 0, width: 0, height: 0}}> {props.book[i].volumeInfo.description} </Text>
               </View>
             </View>
-            </TouchableOpacity>
           )
         } 
       }
@@ -78,8 +72,17 @@ export default function Book(props) {
       <FlatList
         data={result}
         numColumns={3}
+        keyExtractor={({ id }, index) => id}
         style={styles.list}
-        renderItem={({item}) => item} 
+        renderItem={({item}) => (
+          <TouchableOpacity
+            onPress={() => {
+              props.navigation('Detail', {data: item})
+            }}
+          >
+            {item}
+          </TouchableOpacity>
+        )}  
       />      
       <View style={styles.button}>
       {itemsCount === 3 ? (
@@ -89,7 +92,7 @@ export default function Book(props) {
           onPress={showMore}
         />
       ) : (
-        <Text style={{textAlign: 'center', color: 'grey', paddingTop: 20}}>{props.book.length} Resultado(s)</Text>
+        <Text style={{textAlign: 'center', color: 'grey', paddingVertical: 20}}>{result.length} Resultado(s)</Text>
       )}
       </View>
     </View>

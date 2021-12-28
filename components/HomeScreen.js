@@ -50,24 +50,38 @@ const HomeScreen = ({navigation}) => {
     .done();
   }
 
-  // TODO: esses livros precisam vir da API
-  // (pegar dois fixos aleatórios)
+  // Livros da secao descubra novos livros
   const discoverPictures = [
     {
       id: '1',
-      image: require("../assets/business.jpg")
+      image: require("../assets/business.jpg"),
+      book: {
+        title: "Design Thinking: Inovação em Negócios",
+        author: "Mauricio Vianna",
+        description: "O 'Design Thinking' pretende abordar problemas tradicionais de negócio sob múltiplas perspectivas, buscando ajudar a solucioná-los de maneira mais efetiva, conduzindo a novos caminhos. O objetivo desta leitura é propagar no Brasil a cultura do design como uma ferramenta estratégica para as empresas, bem como a percepção de que a possibilidade de retorno financeiro está, muitas vezes, atrelada à capacidade de abordar as mesmas questões por novos ângulos. Este livro se propõe a apresentar etapas, técnicas e ferramentas ilustradas através de cases genuinamente brasileiros.",
+        image: "http://books.google.com/books/content?id=FKC3rEd9xicC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+      }
     },
     {
       id: '2',
-      image: require("../assets/restaurant.jpg")
+      image: require("../assets/restaurant.jpg"),
+      book: {
+        title: "Comida cheia de história",
+        author: "Patrícia Ferraz",
+        description: "Um bom prato fica ainda melhor quando acompanhado de uma boa conversa... e é nesse clima de papo descontraído à mesa que Patrícia Ferraz introduz suas receitas favoritas em Comida cheia de história. As crônicas presentes no livro contam algumas das experiências vividas pela autora em seus vinte anos de jornalismo gastronômico, e envolvem entrevistas com chefs e celebridades, viagens e visitas a restaurantes variados, descobertas ao acaso e segredos aprendidos em casa e em cozinhas famosas. Os textos abrem o apetite para inúmeros pratos que têm em comum o fato de serem incrivelmente saborosos e fáceis de fazer em casa, mesmo por quem não tem experiência ou não conta com uma cozinha grande e equipada. Este lançamento do Senac São Paulo se destina a todos os amantes da gastronomia – simples, prazerosa e feita com capricho – e das boas histórias, que merecem ser compartilhadas.",
+        image: "http://books.google.com/books/content?id=GDzKDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+      }
     }
   ]
 
-  //TODO: esse livro precisam vir da API
+  // Livro atual lido pelo usuario
   const currentReading = {
-    title: 'Harry Potter e a\nPedra Filosofal',
-    author: 'J.K. Rowling',
-    image: require("../assets/harry.jpg")
+    book: {
+      title: 'Mindset',
+    author: 'Carol Dweck',
+    image: "http://books.google.com/books/content?id=aizjDQAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+    description: "Clássico da psicologia em versão revista e atualizada. Carol S. Dweck, professora de psicologia na Universidade Stanford e especialista internacional em sucesso e motivação, desenvolveu, ao longo de décadas de pesquisa, um conceito fundamental: a atitude mental com que encaramos a vida, que ela chama de \"mindset\", é crucial para o sucesso. Dweck revela de forma brilhante como o sucesso pode ser alcançado pela maneira como lidamos com nossos objetivos. O mindset não é um mero traço de personalidade, é a explicação de por que somos otimistas ou pessimistas, bem-sucedidos ou não. Ele define nossa relação com o trabalho e com as pessoas e a maneira como educamos nossos filhos. É um fator decisivo para que todo o nosso potencial seja explorado."
+    }
   }
   
   let [fontsLoaded] = useFonts({
@@ -105,18 +119,14 @@ const HomeScreen = ({navigation}) => {
           title="Descubra novos livros"
           note="Mais"
           image={discoverPictures}
-          onPress={() => {
-            navigation.navigate('Detail')
-          }}
+          navigation={navigation.navigate}
         />
 
         <Reading
           title="Lendo Agora"
           note="Todos"
           book={currentReading}
-          onPress={() => {
-            navigation.navigate('Detail')
-          }}
+          navigation={navigation.navigate}
         />
 
         <Review
@@ -152,9 +162,7 @@ const HomeScreen = ({navigation}) => {
         >    
           <Book
             book={books}
-            onPress={() => {
-              navigation.navigate('Detail') 
-            }}
+            navigation={navigation.navigate}
           >
           </Book>
         </ScrollView>

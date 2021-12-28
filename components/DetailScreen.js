@@ -20,90 +20,171 @@ import { BoxShadow } from "react-native-shadow";
 // Import da fonte do google
 import { useFonts, Poppins_400Regular } from '@expo-google-fonts/poppins';
 
-export default function DetailScreen({navigation}) {
+export default function DetailScreen({navigation, route}) {
 
+  const {data, image} = route.params;
+  
   let [fontsLoaded] = useFonts({
     Poppins_400Regular,
   });
 
-  // TODO: esse livro deve vir do objeto clicado na home screen
-  // (atraves dos dados da API)
-  const book = {
-    title: 'Harry Potter e a\nPedra Filosofal',
-    author: 'J.K. Rowling',
-    description: 'Quando virou o envelope, com a mão trêmula, Harry viu um lacre de cera púrpura com um brasão; um leão, uma águia, um texugo e uma cobra circulando uma grande letra \"H\". Harry Potter nunca havia ouvido falar de Hogwarts quando as cartas começaram a aparecer no capacho da Rua dos Alfeneiros, no 4. Escritos a tinta verde-esmeralda em pergaminho amarelado com um lacre de cera púrpura, as cartas eram rapidamente confiscadas por seus pavorosos tio e tia. Então, no aniversário de onze anos de Harry, um gigante com olhos que luziam como besouros negros chamado Rúbeo Hagrid surge com notícias surpreendentes: Harry Potter é um bruxo e tem uma vaga na Escola de Magia e Bruxaria de Hogwarts. Uma incrível aventura está para começar!',
-    cover: require("../assets/harry.jpg")
+  if(image){
+    return(
+      <SafeAreaView style={{ flex: 1, paddingTop: 50 }}>
+        <StatusBar
+          animated={true}
+          backgroundColor="blanchedalmond"
+        />
+        <ScrollView
+          vertical={true}
+          showsVerticalScrollIndicator={false}
+          bounces={false}
+        >
+          <Feather
+            name="arrow-left"
+            size={26}
+            color='black'
+            style={styles.backButton}
+            onPress={()=>{
+              navigation.navigate('Home')
+            }}
+          />
+          <View style={{ height: 180, borderBottomRightRadius: 100, backgroundColor: 'blanchedalmond', flex:1, alignItems: 'center'}}>
+            <Image 
+              source={require('../assets/circles.png')} 
+              style={{position: 'absolute', top: -550, left: 60, right: 0, bottom: 0}}
+            />
+            <Image source={{uri: `${image.book.image}` }} 
+            style={{position: 'absolute', top: 20, left: 0, right: 0, bottom: -110, height: 200, width:'100%', resizeMode: 'contain'}}
+            />         
+          </View>
+          
+          <View style={styles.textBody}>
+            <Text style={styles.titleText}>{image.book.title}</Text>
+            <Text style={styles.authorText}>{image.book.author}</Text>
+            <Text style={styles.descriptionText}>{image.book.description}</Text>
+            
+          </View>
+      
+        </ScrollView>
+
+        <BoxShadow setting={styles.shadow}>
+          <View style={styles.floatButton}>
+            <Feather
+              name="book"
+              size={22}
+              color='grey'
+              style={styles.iconStyle}
+            />
+            <Text style={styles.floatButtonText}>Ler
+              <Text style={{color: '#afafaf', fontSize: 20}}>{"  |  "}</Text>
+            </Text>
+
+            <Feather
+              name="headphones"
+              size={22}
+              color='grey'
+              style={styles.iconStyle}
+            />
+            <Text style={styles.floatButtonText}>Ouvir
+              <Text style={{color: '#afafaf', fontSize: 20}}>{"  |  "}</Text>
+            </Text>
+
+            <Feather
+              name="share"
+              size={22}
+              color='grey'
+              style={styles.iconStyle}
+            />
+            <Text style={styles.floatButtonText}>Enviar</Text>
+          </View>
+        </BoxShadow>
+      </SafeAreaView>
+    )
+  } else if(data){
+    return (
+      <SafeAreaView style={{ flex: 1, paddingTop: 50 }}>
+        <StatusBar
+          animated={true}
+          backgroundColor="blanchedalmond"
+        />
+        <ScrollView
+          vertical={true}
+          showsVerticalScrollIndicator={false}
+          bounces={false}
+        >
+          <Feather
+            name="arrow-left"
+            size={26}
+            color='black'
+            style={styles.backButton}
+            onPress={()=>{
+              navigation.navigate('Home')
+            }}
+          />
+          <View style={{ height: 180, borderBottomRightRadius: 100, backgroundColor: 'blanchedalmond', flex:1, alignItems: 'center'}}>
+            <Image 
+              source={require('../assets/circles.png')} 
+              style={{position: 'absolute', top: -550, left: 60, right: 0, bottom: 0}}
+            />
+            <Image source={{uri: `${data.props.children[0].props.source.uri}` }} 
+            style={{position: 'absolute', top: 20, left: 0, right: 0, bottom: -110, height: 200, width:'100%', resizeMode: 'contain'}}
+            />         
+          </View>
+          
+          <View style={styles.textBody}>
+            <Text style={styles.titleText}>{data.props.children[1].props.children[0].props.children[1]}</Text>
+            {data.props.children[1].props.children[1].props.children[1] ? (
+              <Text style={styles.authorText}>{data.props.children[1].props.children[1].props.children[1][0]}</Text>
+            ) : (
+              <Text style={styles.authorText}>Autor desconhecido</Text>
+            )}
+            {data.props.children[1].props.children[2] ? (
+              <Text style={styles.descriptionText}>{data.props.children[1].props.children[2].props.children[1]}</Text>
+            ) : (
+              <Text>{" "}</Text>
+            )}
+            
+          </View>
+      
+        </ScrollView>
+
+        <BoxShadow setting={styles.shadow}>
+          <View style={styles.floatButton}>
+            <Feather
+              name="book"
+              size={22}
+              color='grey'
+              style={styles.iconStyle}
+            />
+            <Text style={styles.floatButtonText}>Ler
+              <Text style={{color: '#afafaf', fontSize: 20}}>{"  |  "}</Text>
+            </Text>
+
+            <Feather
+              name="headphones"
+              size={22}
+              color='grey'
+              style={styles.iconStyle}
+            />
+            <Text style={styles.floatButtonText}>Ouvir
+              <Text style={{color: '#afafaf', fontSize: 20}}>{"  |  "}</Text>
+            </Text>
+
+            <Feather
+              name="share"
+              size={22}
+              color='grey'
+              style={styles.iconStyle}
+            />
+            <Text style={styles.floatButtonText}>Enviar</Text>
+          </View>
+        </BoxShadow>
+      </SafeAreaView>
+    );
   }
 
-  return (
-    <SafeAreaView style={{ flex: 1, paddingTop: 50 }}>
-      <StatusBar
-        animated={true}
-        backgroundColor="blanchedalmond"
-      />
-      <ScrollView
-        vertical={true}
-        showsVerticalScrollIndicator={false}
-        bounces={false}
-      >
-        <Feather
-          name="arrow-left"
-          size={26}
-          color='black'
-          style={styles.backButton}
-          onPress={()=>{
-            navigation.navigate('Home')
-          }}
-        />
-        <View style={{ height: 160, borderBottomRightRadius: 100, backgroundColor: 'blanchedalmond', flex:1, alignItems: 'center'}}>
-          <Image 
-            source={require('../assets/circles.png')} 
-            style={{position: 'absolute', top: -550, left: 60, right: 0, bottom: 0}}
-          />
-          <Image source={book.cover} style={{height: 190}}/>
-        </View>
-
-        <View style={styles.textBody}>
-          <Text style={styles.titleText}>{book.title}</Text>
-          <Text style={styles.authorText}>{book.title}</Text>
-          <Text style={styles.descriptionText}>{book.description}</Text>
-        </View>
-    
-      </ScrollView>
-
-      <BoxShadow setting={styles.shadow}>
-        <View style={styles.floatButton}>
-          <Feather
-            name="book"
-            size={22}
-            color='grey'
-            style={styles.iconStyle}
-          />
-          <Text style={styles.floatButtonText}>Ler
-            <Text style={{color: '#afafaf', fontSize: 20}}>{"  |  "}</Text>
-          </Text>
-
-          <Feather
-            name="headphones"
-            size={22}
-            color='grey'
-            style={styles.iconStyle}
-          />
-          <Text style={styles.floatButtonText}>Ouvir
-            <Text style={{color: '#afafaf', fontSize: 20}}>{"  |  "}</Text>
-          </Text>
-
-          <Feather
-            name="share"
-            size={22}
-            color='grey'
-            style={styles.iconStyle}
-          />
-          <Text style={styles.floatButtonText}>Enviar</Text>
-        </View>
-      </BoxShadow>
-    </SafeAreaView>
-  );
+  
 }
 
 const styles = StyleSheet.create(

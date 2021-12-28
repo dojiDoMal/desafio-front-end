@@ -31,7 +31,10 @@ export default function Exploration(props) {
         {props.image.map(item => {
           return (
             <TouchableOpacity
-              onPress={props.onPress}
+              onPress={() => {
+                props.navigation('Detail', {image: item})
+                console.log(item)
+              }}
             >
               <Image source={item.image} style={styles.exploreImage}/>
             </TouchableOpacity>

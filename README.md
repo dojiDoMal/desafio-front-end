@@ -4,4 +4,4 @@ Modelo de aplicativo mobile de busca e gerenciamento de livros utilizando a bibl
 
 Para rodar o projeto você pode utilizar o [expo snack](https://snack.expo.dev/) ou simplesmente entrar o comando `npm start` ou `expo start` depois de baixar os arquivos (lembre de instalar as dependências).
 
-Em caso de dúvida sobre o projeto basta entrar em contato pelo [email](andersonamacedo@hotmail.com) andersonamacedo at hotmail dot com.
+Em caso de dúvida sobre o projeto basta entrar em contato pelo [email](mailto:andersonamacedo@hotmail.com?subject=Desafio%20frontend%20react%20native) andersonamacedo at hotmail dot com.

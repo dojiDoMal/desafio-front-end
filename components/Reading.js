@@ -31,13 +31,15 @@ export default function Reading(props) {
         <Text style={styles.note}> {props.note} </Text>
       </View>
       <TouchableOpacity
-          onPress={props.onPress}
+          onPress={() => {
+            props.navigation('Detail', {image: props.book})
+          }}
         >
       <View style={{flexDirection: 'row'}}>
-          <Image source={props.book.image} style={styles.coverImage}/>
+          <Image source={{uri: `${props.book.book.image}`}} style={styles.coverImage}/>
         <View style={styles.bookInfo}>
-          <Text style={{fontSize: 20, fontWeight: 'bold'}}> {props.book.title} </Text>
-          <Text style={{paddingTop: 5, color: 'grey'}}> de {props.book.author} </Text>
+          <Text style={{fontSize: 20, fontWeight: 'bold'}}> {props.book.book.title} </Text>
+          <Text style={{paddingTop: 5, color: 'grey'}}> de {props.book.book.author} </Text>
           <Text style={{paddingTop: 20}}>
             <Feather
               name="bookmark"
